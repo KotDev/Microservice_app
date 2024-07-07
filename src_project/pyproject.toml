@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "microservices"
+version = "0.1.0"
+description = "Microservices pet-project for вdating apps"
+authors = ["danil <kotikov.lil@bkl.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
