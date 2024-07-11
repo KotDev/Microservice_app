@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: postgres_db_microservice
+    image: postgres:14.1
+    mem_limit: 1GB
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: authorization_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
+
+  redis:
+    container_name: redis_microservice
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data/dаta:/root/redis
+      - ./redis_data/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=root
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+
+  auth:
+    image: auth-service
+    build: ./src/service_authorization/settings
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "auth_app:app", "--host", "0.0.0.0", "--port", "8000"]
+
